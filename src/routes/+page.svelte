@@ -299,6 +299,7 @@
   </main>
 {:else}
   <div class="app-shell">
+    <a class="skip-link" href="#main">Skip to incident command</a>
     <header class="topbar">
       <a class="brand" href="#main"
         ><span class="brand-symbol"><IconRadio size={19} stroke={1.9} /></span
@@ -458,8 +459,11 @@
           </div>
 
           <ol>
-            {#each [...incident.events].reverse() as item (item.id)}
-              <li class:decision={item.kind === "decision"}>
+            {#each [...incident.events].reverse() as item, index (item.id)}
+              <li
+                class:decision={item.kind === "decision"}
+                class:latest={index === 0}
+              >
                 <time datetime={item.at}>{formatTime(item.at)}</time>
                 <div class="event-marker" aria-hidden="true"></div>
                 <div>
